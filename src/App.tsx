@@ -1,25 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import {
+  BrowserRouter as Router,
+  Route,
+  BrowserRouter,
+  Routes,
+} from "react-router-dom";
+import MainPage from "./combonents/mainPage/mainPage";
+import ChatWindow from "./combonents/chatWindow/chatWindow";
+import Sidebar from "./combonents/sideBar/sideBar";
+import { useSelector } from "react-redux";
+import { RootState } from "./redux/reducers";
+import { ActiveTabProvider } from "./contexts/activeTabContext";
 
 function App() {
+  const { device } = useSelector((state: RootState) => state.windowSize);
+  console.log(device);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ActiveTabProvider>
+      <div className="App">
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<MainPage />} />
+          </Routes>
+        </BrowserRouter>
+      </div>
+    </ActiveTabProvider>
   );
 }
 

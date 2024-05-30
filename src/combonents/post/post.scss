@@ -1,0 +1,117 @@
+.post {
+  margin-bottom: 20px;
+  width: 400px;
+  // height: 600px;
+  background-color: black;
+  border-bottom: 2px solid rgb(38, 38, 38);
+  color: white;
+  padding-bottom: 10px;
+
+  .post-header {
+    display: flex;
+    justify-content: space-between;
+    background-color: black;
+    height: 50px;
+    align-items: center;
+    .post-header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      .post-header-profile {
+        width: 30px;
+        height: 30px;
+        border-radius: 15px;
+      }
+      .post-time {
+        color: #999;
+      }
+    }
+    .post-header-right {
+      width: 25px;
+      height: 20px;
+      // margin-right: 2px;
+    }
+  }
+  .post-photo {
+    width: 100%;
+  }
+
+  .post-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    .post-like-count{
+      font-weight: 700;
+    }
+    .post-message {
+      
+      margin-bottom: 5px;
+    
+      
+
+      strong {
+        margin-right: 5px;
+      }
+    }
+
+    .post-actions {
+      margin-top: 5px;
+      padding-left: 5px;
+      display: flex;
+      justify-content: flex-start;
+      gap: 15px;
+      .post-actions-icon {
+        width: 25px;
+        height: 25px;
+        &.liked {
+          color: red;
+        }
+      }
+    }
+  }
+  .comment-section {
+    margin-top: 5px;
+    &.none {
+      display: none;
+    }
+
+    .post-comments {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      .comment {
+        padding: 2px 5px;
+        margin-bottom: 5px;
+        border-radius: 5px;
+
+        strong {
+          margin-right: 5px;
+        }
+      }
+    }
+    .comment-input-wrapper {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      align-items: center;
+
+      .comment-input {
+        width: 85%;
+        margin: 5px 0px;
+        height: 30px;
+        border-radius: 15px;
+        border: 0px;
+        background-color: rgb(42, 42, 42);
+        color: white;
+        padding-left: 15px;
+        ::placeholder {
+          color: rgb(48, 48, 48);
+        }
+      }
+      .comment-icon {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+}
