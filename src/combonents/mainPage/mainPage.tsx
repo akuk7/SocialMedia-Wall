@@ -9,66 +9,81 @@ import profile from "../../assets/data/profile";
 import FriendProfile from "../friendProfile/friendProfile";
 import profilePhoto from "../../assets/images/profile.jpg";
 import { useActiveTab } from "../../contexts/activeTabContext"; // Import the context hook
+import AddPost from "../addPost/addPost";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/reducers";
+import MobileFooter from "../mobileFooter/mobileFooter";
+import ChatBoxMobile from "../chatBoxMobile/chatBoxMobile";
+import { useTheme } from "../../contexts/themeContext";
 
 const MainPage: React.FC = () => {
+  const { isLightMode, toggleTheme } = useTheme();
   const { activeTab, setActiveTab } = useActiveTab(); // Use the context hook
   const [data, setData] = useState(dummyData);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [selectedFriend, setSelectedFriend] = useState<number | null>(null);
-
+  const { device } = useSelector((state: RootState) => state.windowSize);
   const handleFriendSelect = (friendId: number) => {
-    setActiveTab("chat"); // Switch to chat tab when a friend is selected
+    setActiveTab("chat");
     setSelectedFriend(friendId);
   };
 
   const friend = dummyData.find((friend) => friend.id === selectedFriend);
   const sortedFriends = [...dummyData].sort((a, b) => {
-    const lastMessageA = a.chat.length > 0 ? a.chat[a.chat.length - 1].timestamp.getTime() : 0;
-    const lastMessageB = b.chat.length > 0 ? b.chat[b.chat.length - 1].timestamp.getTime() : 0;
+    const lastMessageA =
+      a.chat.length > 0 ? a.chat[a.chat.length - 1].timestamp.getTime() : 0;
+    const lastMessageB =
+      b.chat.length > 0 ? b.chat[b.chat.length - 1].timestamp.getTime() : 0;
     return lastMessageB - lastMessageA; // Sort descending by timestamp
   });
 
-  const filteredFriends = sortedFriends.filter(friend =>
+  const filteredFriends = sortedFriends.filter((friend) =>
     friend.friendName.toLowerCase().includes(searchQuery.toLowerCase())
   );
-
+  const onPostAdded = () => {
+    console.log("post added");
+  };
   return (
     <div className="main-page">
-      <Sidebar activeTab={activeTab} onTabClick={setActiveTab} /> {/* Pass setActiveTab directly */}
-      <div className="content">
+      {device === "mobile" ? (
+        <div className="mobile-footer-wrapper">
+
+        <MobileFooter activeTab={activeTab} onTabClick={setActiveTab} />
+        </div>
+      ) : (
+        <Sidebar activeTab={activeTab} onTabClick={setActiveTab} />
+      )}
+      <div className={`content ${device}`}>
         {activeTab === "home" && <PostSection />}
         {activeTab === "chat" && selectedFriend && (
           <ChatWindow setActiveTab={setActiveTab} friendId={selectedFriend} />
         )}
-        {activeTab === "search" && (
-          <div className="search-section">
-            <h2>Search Section</h2>
-            {/* Add search component or functionality here */}
-          </div>
-        )}
+
         {activeTab === "add-post" && (
-          <div className="add-post-section">
-            <h2>Add Post Section</h2>
-            {/* Add component for adding a new post */}
+          <div className="addpost-wrapper">
+            <AddPost onPostAdded={onPostAdded} />
+            <Profile user={profile} />
           </div>
         )}
         {activeTab === "profile" && (
           <div className="profile-section">
             <Profile user={profile} />
-            {/* Add component for displaying user profile */}
           </div>
         )}
         {activeTab === "friend-profile" && (
           <div className="profile-section">
             <FriendProfile user={friend ? friend : null} />
-            {/* Add component for displaying user profile */}
           </div>
         )}
+        {activeTab === "mobile-chatBox" && <ChatBoxMobile />}
+        {activeTab === "mobile-chatWindow" && selectedFriend && (
+          <ChatWindow setActiveTab={setActiveTab} friendId={selectedFriend} />
+        )}
       </div>
-      <div className="chatbox">
+      <div className={`chatbox ${device} ${isLightMode ? 'light' : ''}`}>
         <div className="chatbox-search-box">
           <input
-            className="chatbox-search"
+            className={`chatbox-search ${isLightMode ? 'light' : ''}`}
             type="text"
             placeholder="Search your friends..."
             value={searchQuery}

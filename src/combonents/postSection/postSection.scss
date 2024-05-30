@@ -6,6 +6,15 @@
     width: 60vw;
     margin-left: 15vw;
     background-color: black;
+    &.light{
+      color: black;
+      background-color: white;
+    }
+    &.mobile{
+      width: 100vw;
+      margin: 0;
+      padding: 0;
+    }
     
     .friend-posts {
       width: 100%;

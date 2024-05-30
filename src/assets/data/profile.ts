@@ -1,5 +1,5 @@
 const profile = {
-    id: 100,
+    id: 1,
     friendName: "John Doe",
     photo: "https://via.placeholder.com/150",
     friends: ["Alice", "Bob", "Charlie"],

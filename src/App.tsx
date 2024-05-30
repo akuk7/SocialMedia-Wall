@@ -13,12 +13,14 @@ import Sidebar from "./combonents/sideBar/sideBar";
 import { useSelector } from "react-redux";
 import { RootState } from "./redux/reducers";
 import { ActiveTabProvider } from "./contexts/activeTabContext";
+import { ThemeProvider } from "./contexts/themeContext";
 
 function App() {
   const { device } = useSelector((state: RootState) => state.windowSize);
   console.log(device);
   return (
     <ActiveTabProvider>
+      <ThemeProvider>
       <div className="App">
         <BrowserRouter>
           <Routes>
@@ -26,6 +28,7 @@ function App() {
           </Routes>
         </BrowserRouter>
       </div>
+      </ThemeProvider>
     </ActiveTabProvider>
   );
 }

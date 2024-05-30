@@ -1,70 +1,42 @@
-.main-page {
-  .mobile-footer-wrapper{
-    position: fixed;
-    bottom: 0;
-    z-index: 2;
-    width: 100vw;
-  }
-  .content {
-    margin-left: 30px;
-    &.mobile {
-      margin: 0;
-    }
-  }
-  .chatbox {
+ .chatbox-mobile {
     position: fixed;
     right: 0;
     top: 0;
-    width: 25vw;
-    background-color: black;
-    color: white;
+    width: 100vw;
+    background-color: #ecf0f1;
     // border: 1px solid #bdc3c7;
-    
+    border-radius: 5px;
     height: 100vh;
     display: flex;
     flex-direction: column;
     border-left: 2px solid rgb(38, 38, 38);
-    &.light{
-      background-color: white;
-      color: black;
-    }
-    &.mobile {
-      display: none;
-    }
-    .chatbox-search-box {
+ 
+    .chatbox-mobile-search-box {
       display: flex;
       justify-content: center;
       align-items: center;
-      
+      background-color: black;
       min-height: 80px;
-      width: 25vw;
+      width: 100vw;
       border-bottom: 2px solid rgb(38, 38, 38);
-      .chatbox-search {
+      .chatbox-mobile-search {
         width: 85%;
         margin: 20px 0px;
-        height: 30px;
+        height: 40px;
         border-radius: 15px;
         border: 0px;
         background-color: rgb(42, 42, 42);
-        // color: white;
+        color: white;
         padding-left: 15px;
         ::placeholder {
           color: rgb(48, 48, 48);
-         
-        }
-        &.light{
-          background-color: rgb(111, 109, 109);
-          &.light::placeholder {
-            color: black;
-           
-          }
-        // color: white;
         }
       }
     }
-    .chatbox-friends {
+    .chatbox-mobile-friends {
       width: 100%;
-     
+      background-color: black;
+      color: white;
 
       overflow-y: scroll;
       overflow-x: hidden;
@@ -72,7 +44,7 @@
       flex-direction: column;
       align-items: flex-start;
 
-      .chatbox-friend {
+      .chatbox-mobile-friend {
         width: 100%;
         padding: 8px 20px;
         cursor: pointer;
@@ -83,26 +55,23 @@
         &:hover {
           background-color: #2c3e50;
         }
-        .chatbox-friend-text {
+        .chatbox-mobile-friend-text {
           display: flex;
           flex-direction: column;
           align-items: flex-start;
           gap: 3px;
-          .chatbox-friend-name {
+          .chatbox-mobile-friend-name {
             font-size: 15px;
           }
-          .chatbox-last-message {
+          .chatbox-mobile-last-message {
             font-size: 10px;
           }
         }
-        .chatbox-friend-photo {
+        .chatbox-mobile-friend-photo {
           width: 50px;
           border-radius: 25px;
         }
       }
     }
   }
-}
-
-  
 

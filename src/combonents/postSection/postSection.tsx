@@ -4,6 +4,9 @@ import './postSection.scss';
 import dummyData from '../../assets/data/friends';
 import profilePhoto from '../../assets/images/profile.jpg'
 import { profile } from 'console';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/reducers';
+import { useTheme } from '../../contexts/themeContext';
 interface Comment {
     id: number;
     text: string;
@@ -27,6 +30,8 @@ interface PostWithFriendId extends  PostProps {
 }
 
 const PostSection: React.FC = () => {
+  const { isLightMode, toggleTheme } = useTheme();
+  const { device } = useSelector((state: RootState) => state.windowSize);
   const allPosts: PostWithFriendId[] = dummyData.reduce<PostWithFriendId[]>((acc, friend) => {
     return acc.concat(
       friend.posts.map(post => ({
@@ -43,7 +48,7 @@ const PostSection: React.FC = () => {
   allPosts.sort((a, b) => (b.postedAt.getTime() - a.postedAt.getTime()));
 
   return (
-    <div className="post-section">
+    <div className={`post-section ${device} ${isLightMode ? 'light' : ''}`}>
       {allPosts.map(post => (
         <Post
          profile={post.profile}

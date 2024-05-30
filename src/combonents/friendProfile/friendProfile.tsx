@@ -1,6 +1,9 @@
 import React from 'react';
 import './friendProfile.scss'; // Style your profile as per your project structure
 import profilePhoto from "../../assets/images/profile.jpg"
+import { useTheme } from '../../contexts/themeContext';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/reducers';
 interface User {
   id: number;
   friendName: string;
@@ -21,8 +24,11 @@ interface ProfileProps {
 }
 
 const FriendProfile: React.FC<ProfileProps> = ({ user }) => {
+  const { device } = useSelector((state: RootState) => state.windowSize);
+
+  const { isLightMode, toggleTheme } = useTheme();
   return (
-    <div className="profile">
+    <div className={`profile ${device} ${isLightMode ? 'light' : ''}`}>
       <div className="profile-header">
         <img
           className="profile-photo"

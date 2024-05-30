@@ -14,6 +14,8 @@ import {
 } from "@fortawesome/free-regular-svg-icons";
 import { faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
 import dummyData from "../../assets/data/friends";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/reducers";
 interface Comment {
   id: number;
   text: string;
@@ -49,6 +51,8 @@ const Post: React.FC<PostProps> = ({
   const [commentList, setCommentList] = useState(comments);
   const [newComment, setNewComment] = useState("");
   const [friend, setFriend] = useState<Friend | undefined>(undefined);
+  const { device } = useSelector((state: RootState) => state.windowSize);
+
 const findFriend=(friendName:string) =>{
   const Friend = dummyData.find((friend) => friend.friendName === friendName);
   
@@ -101,7 +105,7 @@ const findFriend=(friendName:string) =>{
   };
 
   return (
-    <div className="post">
+    <div className={`post ${device}`}>
       <div className="post-header">
         <div className="post-header-left">
           <img alt="" src={profile} className="post-header-profile" />

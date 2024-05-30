@@ -4,6 +4,9 @@ import dummyData from "../../assets/data/friends";
 import profilePhoto from "../../assets/images/profile.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane, faPhone, faVideo } from "@fortawesome/free-solid-svg-icons";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/reducers";
+import { useTheme } from "../../contexts/themeContext";
 
 interface ChatMessage {
   id: number;
@@ -25,6 +28,8 @@ interface ChatWindowProps {
 }
 
 const ChatWindow: React.FC<ChatWindowProps> = ({ friendId, setActiveTab }) => {
+  const { device } = useSelector((state: RootState) => state.windowSize);
+  const { isLightMode, toggleTheme } = useTheme();
   const [newMessage, setNewMessage] = useState("");
   const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
   const [friend, setFriend] = useState<Friend | undefined>(undefined);
@@ -33,12 +38,16 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ friendId, setActiveTab }) => {
     const currentFriend = dummyData.find((friend) => friend.id === friendId);
     if (currentFriend) {
       setFriend(currentFriend);
-
-      setChatHistory([]);
+      setChatHistory(currentFriend.chat);
     } else {
       setFriend(undefined);
     }
   }, [friendId]);
+
+  useEffect(() => {
+    window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' });
+  }, [chatHistory]);
+
   const options: Intl.DateTimeFormatOptions = {
     hour: "2-digit",
     minute: "2-digit",
@@ -53,7 +62,6 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ friendId, setActiveTab }) => {
         user: "You",
         timestamp: new Date(),
       };
-
       setChatHistory([...chatHistory, newMessageObj]);
       setNewMessage("");
     }
@@ -68,8 +76,8 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ friendId, setActiveTab }) => {
   }
 
   return (
-    <div className="chatwindow">
-      <div className="chatwindow-header">
+    <div className={`chatwindow ${device} ${isLightMode ? 'light' : ''}`}>
+      <div className={`chatwindow-header ${isLightMode ? 'light' : ''}`}>
         <div className="chatwindow-header-left">
           <img
             alt=""
@@ -86,21 +94,11 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ friendId, setActiveTab }) => {
         </div>
       </div>
       <div className="chat-messages">
-        {friend.chat.map((message) => (
+        {chatHistory.map((message) => (
           <div
             key={message.id}
-            className={`message ${
-              message.user === "You" ? "sent" : "received"
-            }`}
+            className={`message ${message.user === "You" ? "sent" : "received"}`}
           >
-            <div className="message-text">{message.text}</div>
-            <div className="message-time">
-              {message.timestamp.toLocaleTimeString([], options)}
-            </div>
-          </div>
-        ))}
-        {chatHistory.map((message) => (
-          <div key={message.id} className="message sent">
             <div className="message-text">{message.text}</div>
             <div className="message-time">
               {message.timestamp.toLocaleTimeString([], options)}
@@ -115,7 +113,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ friendId, setActiveTab }) => {
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
         />
-        <FontAwesomeIcon icon={faPaperPlane} className="message-send-icon" onClick={handleSend}/>
+        <FontAwesomeIcon icon={faPaperPlane} className="message-send-icon" onClick={handleSend} />
       </div>
     </div>
   );

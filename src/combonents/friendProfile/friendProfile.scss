@@ -5,12 +5,25 @@
   border: 1px solid #ccc;
   color: white;
   background-color: black;
+  &.light{
+    color: black;
+    background-color: white;
+  }
+  &.mobile{
+    margin: 0;
+    width: 100vw;
+  }
 
   .profile-header {
     display: flex;
     align-items: center;
     padding: 50px;
     margin-bottom: 20px;
+    
+    &.mobile{
+      padding: 20px;
+    }
+
 
     .profile-photo {
       width: 100px;
@@ -29,6 +42,9 @@
       .profile-name {
         margin: 0;
         font-size: 30px;
+        &.mobile{
+          font-size: 20px;
+        }
       }
       .profile-counts {
         display: flex;
