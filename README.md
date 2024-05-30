@@ -15,9 +15,9 @@ This project is a frontend application for a social media wall, built with React
 
 To run this project locally, follow these steps:
 
-1. **Clone the repository**:
+## **Clone the repository**:
    ```bash
-   git clone https://github.com/your-username/social-media-wall.git
+   git clone https://github.com/akuk7/SocialMedia-Wall.git
    cd social-media-wall
 
    npm install
