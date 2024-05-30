@@ -15,6 +15,7 @@ import { RootState } from "../../redux/reducers";
 import MobileFooter from "../mobileFooter/mobileFooter";
 import ChatBoxMobile from "../chatBoxMobile/chatBoxMobile";
 import { useTheme } from "../../contexts/themeContext";
+import Notifications from "../notification/notification";
 
 const MainPage: React.FC = () => {
   const { isLightMode, toggleTheme } = useTheme();
@@ -69,6 +70,11 @@ const MainPage: React.FC = () => {
           <div className="profile-section">
             <Profile user={profile} />
           </div>
+        )}
+         {activeTab === "notification" && (
+          
+            <Notifications/>
+        
         )}
         {activeTab === "friend-profile" && (
           <div className="profile-section">

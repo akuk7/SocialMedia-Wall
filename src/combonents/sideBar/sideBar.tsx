@@ -2,6 +2,7 @@ import React from "react";
 import "./sideBar.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faBell,
   faHouse,
   faMagnifyingGlass,
   faMoon,
@@ -55,6 +56,13 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, onTabClick }) => {
         >
           <FontAwesomeIcon icon={faUser} className="sidebar-icon" />
           <div className="sidebar-name">Profile</div>
+        </li>
+        <li
+          className={`sidebar-item ${activeTab === "home" ? "active" : ""}`}
+          onClick={() => onTabClick("notification")}
+        >
+          <FontAwesomeIcon icon={faBell} className="sidebar-icon" />
+          <div className="sidebar-name">Notifications</div>
         </li>
 
         <li className={`sidebar-item`} onClick={toggleTheme}>

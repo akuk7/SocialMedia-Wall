@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHouse, faMessage, faMoon, faPlus, faSun, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faHouse, faMessage, faMoon, faPlus, faSun, faUser } from '@fortawesome/free-solid-svg-icons';
 import './mobileFooter.scss'; // Assuming you have a CSS file for styling
 import { useActiveTab } from '../../contexts/activeTabContext';
 import logo from "../../assets/images/logo.png"
@@ -19,7 +19,7 @@ const MobileFooter: React.FC<MobileFooterProps> = (onTabClick) => {
     
     <div className={`mobile-footer  ${isLightMode ? 'light' : ''}`}>
       <div className='footer-menu'>
-        <img src={logo} alt='logo' className='footer-icon'/>
+        {/* <img src={logo} alt='logo' className='footer-icon'/> */}
           <FontAwesomeIcon icon={faHouse} className="footer-icon" onClick={() => {setActiveTab('home');
             console.log('working')
           }}/>
@@ -27,8 +27,11 @@ const MobileFooter: React.FC<MobileFooterProps> = (onTabClick) => {
        
           <FontAwesomeIcon icon={faPlus} className="footer-icon" onClick={() => setActiveTab('add-post')}/>
           <FontAwesomeIcon icon={faUser} className="footer-icon"onClick={() => {setActiveTab('profile');
-            console.log('working')
+            
           }} />
+          <FontAwesomeIcon icon={faBell} className="footer-icon" onClick={() => {setActiveTab('notification');
+            
+          }}/>
            <div onClick={toggleTheme}>
           {isLightMode ? (
             <>
